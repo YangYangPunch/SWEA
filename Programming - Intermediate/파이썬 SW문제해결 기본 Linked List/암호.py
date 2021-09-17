@@ -32,13 +32,25 @@ class DLL(Node):
             cur_node = cur_node.nxt
         print(self.tail.data)
 
-    def print_reverse_10(self):
+    def print_reverse(self):
         cur_node = self.tail
 
         while cur_node.prv is not None:
             print(cur_node.data, end=" ")
             cur_node = cur_node.prv
         print(self.head.data)
+
+    def print_reverse_10(self):
+        cur_node = self.tail
+
+        for _ in range(9):
+            if cur_node.prv is not None:
+                print(cur_node.data, end=" ")
+                cur_node = cur_node.prv
+            else:
+                print(cur_node.data)
+                return
+        print(cur_node.data)
 
     # idx 위치에 값을 삽입하고 it번 반복하는 함수
     def insert(self, idx, it):
@@ -56,9 +68,9 @@ class DLL(Node):
             # cur_node가 맨 처음일 때, 추가할 값을 맨 앞에 넣기
             if cur_node == self.head:
                 new_node = Node(self.head.data + self.tail.data)
-                new_node.nxt = cur_node
-                cur_node.prv = new_node
-                self.head = new_node
+                new_node.prv = self.tail
+                self.tail.nxt = new_node
+                self.tail = new_node
                 cur_node = new_node
             else:
                 new_node = Node(cur_node.data + cur_node.prv.data)
@@ -67,7 +79,6 @@ class DLL(Node):
                 cur_node.prv.nxt = new_node
                 cur_node.prv = new_node
                 cur_node = new_node
-
 
 
 T = int(input())
@@ -83,13 +94,6 @@ for test_case in range(1, T + 1):
             node.add_to_tail(num_list[i])
 
     node.insert(index, iterator)
+
     print("#{}".format(test_case), end=" ")
     node.print_reverse_10()
-
-
-
-
-
-
-
-
